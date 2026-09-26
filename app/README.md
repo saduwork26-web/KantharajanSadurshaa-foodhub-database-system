@@ -35,4 +35,4 @@ The application gives staff members a user-friendly way to interact with the dat
 
 ## Screenshots
 
-See the [`screenshots/`](../screenshots/) folder for evidence of each form in action.
+See the [screenshots](../screenshots/) folder for evidence of each form in action.
