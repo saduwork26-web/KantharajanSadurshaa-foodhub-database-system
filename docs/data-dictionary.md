@@ -1,3 +1,7 @@
+# Data Dictionary
+
+|     |     |     |     |     |
+| --- | --- | --- | --- | --- |
 | **Table Name** | **Column Name** | **Data Type** | **Key** | **Description** |
 | **Customer** | Customer_ID | INT | Primary Key | To identify the customer uniquely. |
 | NIC | VARCHAR (12) | Candidate Key | National Identity Card number |
