@@ -137,3 +137,44 @@ This document takes the conceptual ER diagram and turns it into a logical relati
 | Shift | VARCHAR (10) |     | The shift of the rider; whether it is daytime or nighttime |
 | Meter_Reading_When_Assigned | INT |     | The meter reading of the bike when it was assigned for the delivery |
 | Meter_Reading_When_Returned | INT |     | The meter reading of the bike when it was returned after the delivery |
+
+## Normalization Report – FoodHub Database System
+
+As (Coronel, 2018) point out, normalization is the process of organizing the data in such a way as to minimize redundancy and remove the possibility of anomalies. The FoodHub database has been normalized through the following stages:
+
+### First Normal Form (1NF)
+
+A table is in 1NF if it contains only atomic (indivisible) values and there are no repeating groups.
+
+**Justification:** In the initial design, a food item could have multiple ingredients, and a motorbike could have multiple colors. To achieve 1NF, these multivalued attributes were removed from the main \`Item\` and \`Motorbike\` tables. They were placed into their own separate tables: \`Ingredient\` and \`Motorbike_Color\`. Additionally, the \`Ordered_Item\` table was created to handle the multiple items within a single order, ensuring every column holds only one value per row.
+
+### Second Normal Form (2NF)
+
+A table is in 2NF if it is in 1NF and all non-key attributes are fully functionally dependent on the primary key (no partial dependencies).
+
+**Justification:** This rule applies mostly to our tables with Composite Primary Keys. For example, in the \`Ordered_Item\` table, the primary key is a combination of \`Order_No\` and \`Item_Number\`. The attribute \`Quantity\` depends on both the order and the item. Therefore, there are no partial dependencies. The same applies to the \`Ingredient\` and \`Motorbike_Color\` tables.
+
+### Third Normal Form (3NF)
+
+A table is in 3NF if it is in 2NF and there are no transitive dependencies (where a non-key attribute depends on another non-key attribute).
+
+**Justification:** The data for all 11 tables has been broken down into separate entities, so that attributes only depend on their respective primary keys and keep all 11 tables in 3NF:
+
+- Customer, Staff, Rider and Motorbike Tables: Non-key attributes (such as Name, Address, DOB, and Contact_Number) depend only on their primary key. There's no Order table, only the Customer table where the customers' address is stored.
+
+- Order Table: The attributes (Order_Date, Order_Time, Order_Status, Payment_Method, and Dispatch_Time) are dependent on the Order_No. Foreign keys Customer_ID and Employee_Number are used to avoid the transitive dependency.
+
+- Item Table: Item_Name, Category and Price are dependent on only the Item_Number.
+- Dependent Table: The composite key (Employee_Number + Dependent_Name) depends only on the attributes DOB and Relationship_to_the_rider.
+
+- Bike_Assignment Table: The attributes (Meter_Reading_When_Assigned, Meter_Reading_When_Returned, Date_Used, and Shift). Therefore, there is no transitive dependency on Rider or Motorbike.
+
+- Association tables (Ordered_Item, Ingredient, Motorbike_Color): These tables have only Foreign Keys and a single descriptive attribute and are therefore it is in 3NF.
+
+Conclusion:
+
+The FoodHub database design not only satisfies these requirements for Third Normal Form (3NF), but they also ensure that there are no data anomalies in the system.
+
+# References
+
+Coronel, C., 2018. _Database Systems: Design, Implementation, and Management._ 13th edn ed. Boston: engage Learning.
